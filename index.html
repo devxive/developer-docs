@@ -36,6 +36,8 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="well sidebar-nav" id="doc-menu">
+					<!-- <span ng-bind-html-unsafe="menu | marked"></span> -->
+					<span ng-bind-html-unsafe="treeJSONarray"></span>
 				</div>
 			</div>
 			<div class="col-md-9" id="doc-main" ng-view>
