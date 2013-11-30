@@ -2,12 +2,15 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('JoomlaDevDocs', ['angulartics', /*'angulartics.google.analytics',*/ 'JoomlaDevDocs.filters', 'JoomlaDevDocs.services', 'JoomlaDevDocs.directives']).
-  config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/:lang/:part1', {templateUrl: 'partials/docPage.html', controller: DocController});
-    $routeProvider.when('/:lang/:part1/:part2', {templateUrl: 'partials/docPage.html', controller: DocController});
-    $routeProvider.when('/:lang/:part1/:part2/:part3', {templateUrl: 'partials/docPage.html', controller: DocController});
-    $routeProvider.when('/:lang/:part1/:part2/:part3/:part4', {templateUrl: 'partials/docPage.html', controller: DocController});
-
-    $routeProvider.otherwise({redirectTo: '/en/home.md'});
-  }]);
+angular.module('myApp', [
+  'ngRoute',
+  'myApp.filters',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers'
+]).
+config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+  $routeProvider.otherwise({redirectTo: '/view1'});
+}]);

@@ -28,21 +28,3 @@
   content: "";
   padding: 0;
 }
-
-/* The following is for the Markdown table styling  */
-table
-{
-	border: 1px solid gray;
-}
-
-td
-{
-	border: 1px solid gray;
-	padding: 10px;
-}
-
-th
-{
-	border: 1px solid gray;
-	padding: 10px;
-}
