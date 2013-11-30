@@ -1,11 +1,59 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
-  <title>My AngularJS App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+	<meta charset="utf-8">
+	<title>The devXive Developer Documentation</title>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.css"/>
+	<link rel="stylesheet" href="css/app.css"/>
+  
+	<style type="text/css">
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.nrdk-surround {
+			margin: 0 15px
+		}
+		.sidebar-nav {
+			padding: 9px 0;
+		}
+	</style>
 </head>
 <body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">devXive - Developer Documentation</a>
+		</div>
+	</div>
+
+	<div class="nrdk-surround">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="well sidebar-nav" id="doc-menu">
+				</div>
+			</div>
+			<div class="col-md-9" id="doc-main" ng-view>
+			</div>
+		</div>
+		
+		<hr>
+
+		<footer class="hide">
+			<p>The contents of this wiki are subject to copyright law and are made available under the <a href="http://devxive.com/DEDL"
+			title="devXive Electronic Documentation License (DEDL)">devXive Electronic Documentation License (DEDL)</a> unless otherwise stated.
+			You may find the <a href="http://devxive.com/DEDL/FAQ" title="DEDL Frequently Asked Questions">DEDL Frequently Asked Questions</a>
+			useful in determining if your proposed use of this material is allowed. If you have any questions regarding licensing of this
+			material please contact <a href="mailto:legal@devxive.com" title="eMail to devXive - research and development">legal@devxive.com</a>.
+			If you wish to report a possible violation of the license terms for the material on this site then please contact
+			<a href="mailto:legal@devxive.com" title="eMail to devXive - reseach and development">legal@devxive.com</a>.</p>
+		</footer>
+	</div>
+
+
+
+	<div class="container">
+
   <ul class="menu">
     <li><a href="#/view1">view1</a></li>
     <li><a href="#/view2">view2</a></li>
@@ -14,6 +62,11 @@
   <div ng-view></div>
 
   <div>Angular seed app: v<span app-version></span></div>
+
+
+	</div>
+
+
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
