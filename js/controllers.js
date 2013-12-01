@@ -28,6 +28,9 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 		
 		/* point the edit to the original master, then you are prompted to fork if you don't have write access */
 		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/master/docs/' + page;
+		
+		console.log(page);
+		console.log(data);
 	});
 }
 
