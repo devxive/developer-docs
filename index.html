@@ -36,8 +36,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="well sidebar-nav" id="doc-menu" ng-controller="MenuController">
-					<!-- <span ng-bind-html-unsafe="menu | marked"></span> -->
-					<span ng-bind-html-unsafe="treeJSONarray"></span>
+					<span ng-bind-html="treeJSONarray"></span>
 				</div>
 			</div>
 			<div class="col-md-9" id="doc-main" ng-view>
@@ -55,6 +54,9 @@
 			If you wish to report a possible violation of the license terms for the material on this site then please contact
 			<a href="mailto:legal@devxive.com" title="eMail to devXive - reseach and development">legal@devxive.com</a>.</p>
 		</footer>
+		
+		{{pageContent}}
+		
 	</div>
 
 	<!-- In production use:
@@ -62,6 +64,7 @@
 	-->
 	<script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-sanitize.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/controllers.js"></script>
@@ -70,3 +73,5 @@
 	<script src="js/marked.js"></script>
 </body>
 </html>
+
+

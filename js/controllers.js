@@ -25,17 +25,12 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 
 	$http.get('docs/' + page).success(function(data) {
 		$scope.pageContent = data;
+		
 		/* point the edit to the original master, then you are prompted to fork if you don't have write access */
 		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/master/docs/' + page;
 	});
 }
-/* // Original menu controller
- function MenuController($scope, $http, $route) {
- $http.get('docs/menu.md').success(function(data) {
- $scope.menu = data;
- });
- }
- */
+
 function MenuController($scope, $http, $route, $templateCache) {
 	$scope.method = 'GET';
 	// reference the devXive repo
