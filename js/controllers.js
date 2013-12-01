@@ -65,7 +65,8 @@ function MenuController($scope, $http, $route, $templateCache) {
 			var markdownCMSFiles = /^docs\/.{2}\/cms\/.*?md$/;
 			var markdownFrameworkFiles = /^docs\/.{2}\/framework\/.*?md$/;
 			var separatePath = /(.*)[\/\\]([^\/\\]+\.\w+)$/;
-			var isOfficial = /^http\:\/\/developer\.docs\.devxive\.com/;
+//			var isOfficial = /^http\:\/\/developer\.docs\.devxive\.com/;
+			var isOfficial = /^http\:\/\/devxive\.github\.io/;
 			// Utility variables used throughout the function
 			var splitPath = "";
 			var lastPath = "";
@@ -179,4 +180,3 @@ function MenuController($scope, $http, $route, $templateCache) {
 			$scope.status = status;
 		});
 } // end of menuController
-console.log($scope);
