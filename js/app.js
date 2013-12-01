@@ -18,7 +18,7 @@ angular.module('devXiveDevDocs', [
     $routeProvider.otherwise({redirectTo: 'en/home.md'});
   }]);
 
-angular.module('devXiveDevDocs', []).
+angular.module('devXiveDevDocs', ['ngSanitize']).
   config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       // Allow same origin resource loads.
