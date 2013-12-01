@@ -60,10 +60,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 				depth: 0
 			};
 			// regex for filtering and splitting paths and files
-			var markdownServerFiles = /^docs\/.{2}\/server\/.*?md$/;
-			var markdownIDEFiles = /^docs\/.{2}\/ide\/.*?md$/;
 			var separatePath = /(.*)[\/\\]([^\/\\]+\.\w+)$/;
-			var isOfficial = /^http\:\/\/devxive\.github\.io/;
 			// Utility variables used throughout the function
 			var splitPath = "";
 			var lastPath = "";
@@ -72,97 +69,96 @@ function MenuController($scope, $http, $route, $templateCache) {
 			var matchingPath = 0;
 			var lastDepth = 0;
 			var lastFolder = "";
+			var linkName = "";
+
 			// Variable used to build the HTML tree
-			var menuTreeHTML = "";
+			var menuTreeHTML = "<ul>";
+
 			// get the current url to see if we need to specify the repo name or not
 			var currentURL = window.location.href;
+
 			// foreach loop to get the sha of the latest commit for the tree
 			angular.forEach($scope.commit, function(value, key) {
 				if($scope.count > 0) return;
 				$scope.commitSha.push({sha: value});
 				// Reference the devXive repo
 				$scope.treeUrl = 'https://api.github.com/repos/devXive/developer-docs/git/trees/' + value.sha + '?recursive=1';
+				
 				// get the tree details - unfortunately it is a flat tree, not nested with children, so we have to create the hierachy
 				$http({method: $scope.method, url: $scope.treeUrl, cache: $templateCache}).
 					success(function(data, status) {
 						$scope.status = status;
 						$scope.treeDetails = data;
-						// only store the paths that begin with "docs/**/cms/" or "docs/**/framework" and ends with "md"
+
 						angular.forEach($scope.treeDetails.tree, function(value, key) {
-							if(value.path.match(markdownServerFiles) != null | value.path.match(markdownIDEFiles) != null) {
-								// Get a list of paths
-								var splitRoute = value.path.match(separatePath);
-								if(splitRoute != null) {
-									treeJSON.name = splitRoute[2];
-									treeJSON.path = splitRoute[1].replace(/^docs\//, "");
-									treeJSON.depth = treeJSON.path.split("/").length;
-									// use angular.copy to de-reference treeJSON and create a new instance.
-									// Otherwise you get an array full of the last value only
-									$scope.treeJSONarray.push(angular.copy(treeJSON));
-								}
-								fileCounter++;
+							// Get a list of paths
+							var splitRoute = value.path.match(separatePath);
+							if(splitRoute != null) {
+								treeJSON.name = splitRoute[2];
+								treeJSON.path = splitRoute[1].replace(/^docs\//, "");
+								treeJSON.depth = treeJSON.path.split("/").length;
+								// use angular.copy to de-reference treeJSON and create a new instance.
+								// Otherwise you get an array full of the last value only
+								$scope.treeJSONarray.push(angular.copy(treeJSON));
 							}
+							fileCounter++;
 						});
+						
 						// build the html menu tree
 						angular.forEach($scope.treeJSONarray, function(value, key) {
+							console.log( value );
 							// insert home to the top of the tree
 							if(key == 1) {
-								menuTreeHTML = '<ul><li><a href="/#/en/home.md" title="Home">Home</a></li>';
+								linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
+								menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="Home">' + linkName + '</a></li>';
 							}
-							else if(key == 2) {
-								lastFolder = $scope.treeJSONarray[key].path.split("/");
-								menuTreeHTML += '<li>' + lastFolder[lastFolder.length - 1].toUpperCase() + '</a><ul>';
-								if(currentURL.match(isOfficial)) {
-									menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
-								}
-								else {
-									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
-								}
-							}
+//							else if(key == 2) {
+//								lastFolder = $scope.treeJSONarray[key].path.split("/");
+//								menuTreeHTML += '<li>' + lastFolder[lastFolder.length - 1].toUpperCase() + '<ul>';
+								
+//								menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';
+//							}
 							else {
 								if($scope.treeJSONarray[key].depth > lastDepth) {
 									lastFolder = $scope.treeJSONarray[key].path.split("/");
-									menuTreeHTML += '<li>' + lastFolder[$scope.treeJSONarray[key].depth - 1].toUpperCase() + '</a><ul>';
-									if(currentURL.match(isOfficial)) {
-										menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
-									}
-									else {
-										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
-									}
+									linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
+									menuTreeHTML += '<li>' + lastFolder[$scope.treeJSONarray[key].depth - 1].toUpperCase() + '<ul>';
+
+									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + linkName + ' TTT</a></li>';											
 								}
+
 								if($scope.treeJSONarray[key].depth == lastDepth) {
 									lastFolder = $scope.treeJSONarray[key].path.split("/");
-									if(currentURL.match(isOfficial)) {
-										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
-									}
-									else {
-										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
-									}
+									linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
+									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + linkName + ' RRR</a></li>';											
+
 									menuTreeHTML += '</li>';
+									menuTreeHTML += '</ul>';
 								}
 								else if($scope.treeJSONarray[key].depth < lastDepth) {
-									menuTreeHTML += '</ul>';
+//									menuTreeHTML += '</ul>';
 									if($scope.treeJSONarray[key].depth == 2) {
 										lastFolder = $scope.treeJSONarray[key].path.split("/");
 										if(lastFolder[1] != $scope.treeJSONarray[key - 1].path.split("/")[1]) {
-											menuTreeHTML += '</ul>';
+//											menuTreeHTML += '</ul>';
 											menuTreeHTML += '<li>' + lastFolder[$scope.treeJSONarray[key].depth - 1].toUpperCase() + '<ul>';
 										}
-										if(currentURL.match(isOfficial)) {
-											menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
-										}
-										else {
-											menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
-										}
+
+										linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
+										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + linkName + '</a></li>';											
+
 										menuTreeHTML += '</li>';
 									}
 								}
 							}
 							if(key == $scope.treeJSONarray.length) {
-								menuTreeHTML += '</ul></ul>';
+console.log('JETZT');
+//								menuTreeHTML += '</ul>';
 							}
 							lastDepth = $scope.treeJSONarray[key].depth;
 						});
+						menuTreeHTML += '</ul>';
+
 						$scope.treeJSONarray = menuTreeHTML;
 					}).
 					error(function(data, status) {
