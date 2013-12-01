@@ -26,7 +26,7 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 	$http.get('docs/' + page).success(function(data) {
 		$scope.pageContent = data;
 		/* point the edit to the original master, then you are prompted to fork if you don't have write access */
-		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/master/docs/' + page;
+		$scope.sourceEdit = 'https://github.com/joomla/joomla-developer-docs/edit/master/docs/' + page;
 	});
 }
 /* // Original menu controller
@@ -38,8 +38,8 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
  */
 function MenuController($scope, $http, $route, $templateCache) {
 	$scope.method = 'GET';
-	// reference the devXive repo
-	$scope.commitUrl = 'https://api.github.com/repos/devXive/developer-docs/commits?path=docs';
+	// reference the official Joomla repo
+	$scope.commitUrl = 'https://api.github.com/repos/joomla/joomla-developer-docs/commits?path=docs';
 
 	// get the commits that affect the docs path only
 	$http({method: $scope.method, url: $scope.commitUrl, cache: $templateCache}).
@@ -62,11 +62,10 @@ function MenuController($scope, $http, $route, $templateCache) {
 				depth: 0
 			};
 			// regex for filtering and splitting paths and files
-			var markdownZSTUDIOFiles = /^docs\/.{2}\/zendstudio\/.*?md$/;
-			var markdownZSERVERFiles = /^docs\/.{2}\/zendserver\/.*?md$/;
+			var markdownCMSFiles = /^docs\/.{2}\/cms\/.*?md$/;
+			var markdownFrameworkFiles = /^docs\/.{2}\/framework\/.*?md$/;
 			var separatePath = /(.*)[\/\\]([^\/\\]+\.\w+)$/;
-//			var isOfficial = /^http\:\/\/developer\.docs\.devxive\.com/;
-			var isOfficial = /^http\:\/\/devxive\.github\.io/;
+			var isOfficial = /^http\:\/\/developer\.docs\.joomla\.org/;
 			// Utility variables used throughout the function
 			var splitPath = "";
 			var lastPath = "";
@@ -83,8 +82,8 @@ function MenuController($scope, $http, $route, $templateCache) {
 			angular.forEach($scope.commit, function(value, key) {
 				if($scope.count > 0) return;
 				$scope.commitSha.push({sha: value});
-				// Reference the devXive repo
-				$scope.treeUrl = 'https://api.github.com/repos/devXive/developer-docs/git/trees/' + value.sha + '?recursive=1';
+				// Reference the official Joomla repo
+				$scope.treeUrl = 'https://api.github.com/repos/joomla/joomla-developer-docs/git/trees/' + value.sha + '?recursive=1';
 				// get the tree details - unfortunately it is a flat tree, not nested with children, so we have to create the hierachy
 				$http({method: $scope.method, url: $scope.treeUrl, cache: $templateCache}).
 					success(function(data, status) {
@@ -92,7 +91,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 						$scope.treeDetails = data;
 						// only store the paths that begin with "docs/**/cms/" or "docs/**/framework" and ends with "md"
 						angular.forEach($scope.treeDetails.tree, function(value, key) {
-							if(value.path.match(markdownZSTUDIOFiles) != null | value.path.match(markdownZSERVERFiles) != null) {
+							if(value.path.match(markdownCMSFiles) != null | value.path.match(markdownFrameworkFiles) != null) {
 								// Get a list of paths
 								var splitRoute = value.path.match(separatePath);
 								if(splitRoute != null) {
@@ -119,7 +118,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 									menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
 								}
 								else {
-									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
+									menuTreeHTML += '<li><a href="/joomla-developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
 								}
 							}
 							else {
@@ -130,7 +129,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 										menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
 									}
 									else {
-										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
+										menuTreeHTML += '<li><a href="/joomla-developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
 									}
 								}
 								if($scope.treeJSONarray[key].depth == lastDepth) {
@@ -139,7 +138,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 										menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
 									}
 									else {
-										menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
+										menuTreeHTML += '<li><a href="/joomla-developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
 									}
 									menuTreeHTML += '</li>';
 								}
@@ -155,7 +154,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 											menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
 										}
 										else {
-											menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
+											menuTreeHTML += '<li><a href="/joomla-developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
 										}
 										menuTreeHTML += '</li>';
 									}
