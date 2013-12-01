@@ -35,7 +35,7 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
  $scope.menu = data;
  });
  }
- */
+ */console.log('horray');
 function MenuController($scope, $http, $route, $templateCache) {
 	$scope.method = 'GET';
 	// reference the devXive repo
