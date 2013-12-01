@@ -3,7 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('devXiveDevDocs', [
-  'ngRoute',
+  /*'ngRoute',*/
   'devXiveDevDocs.filters',
   'devXiveDevDocs.services',
   'devXiveDevDocs.directives'
