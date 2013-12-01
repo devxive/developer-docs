@@ -23,14 +23,14 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 		page += '/' + $routeParams.part4;
 	}
 
-	$http.get('developer-docs/docs/' + page).success(function(data) {
+	$http.get('docs/' + page).success(function(data) {
 		$scope.pageContent = data;
 		
 		/* point the edit to the original master, then you are prompted to fork if you don't have write access */
 		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/master/docs/' + page;
 		
-		console.log(page);
-		console.log(data);
+//		console.log(page);
+//		console.log(data);
 	});
 }
 
@@ -89,7 +89,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 						$scope.treeDetails = data;
 						// only store the paths that begin with "docs/**/cms/" or "docs/**/framework" and ends with "md"
 						angular.forEach($scope.treeDetails.tree, function(value, key) {
-//							if(value.path.match(markdownServerFiles) != null | value.path.match(markdownIDEFiles) != null) {
+							if(value.path.match(markdownServerFiles) != null | value.path.match(markdownIDEFiles) != null) {
 								// Get a list of paths
 								var splitRoute = value.path.match(separatePath);
 								if(splitRoute != null) {
@@ -101,7 +101,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 									$scope.treeJSONarray.push(angular.copy(treeJSON));
 								}
 								fileCounter++;
-//							}
+							}
 						});
 						// build the html menu tree
 						angular.forEach($scope.treeJSONarray, function(value, key) {
