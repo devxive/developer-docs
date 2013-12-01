@@ -3,11 +3,11 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('devXiveDevDocs', [
-  /*'ngRoute',*/
+  'ngRoute',
   'devXiveDevDocs.filters',
   'devXiveDevDocs.services',
-  'devXiveDevDocs.directives'
-  /*'devXiveDevDocs.controllers'*/
+  'devXiveDevDocs.directives',
+  'devXiveDevDocs.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/:lang/:part1', {templateUrl: 'partials/docPage.html', controller: DocController});
