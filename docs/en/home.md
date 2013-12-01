@@ -10,7 +10,10 @@ Documentation is a community responsibility!
 
 * [Server](#/en/server/server.md)
 * [IDE](#/en/ide/ide.md)
-* s
+* Coding Standards
+* Formatting
+* Templates
+* Rapid Development Kit
 
 ## Acknowledgements
 
