@@ -77,6 +77,8 @@ function MenuController($scope, $http, $route, $templateCache) {
 			var matchingPath = 0;
 			var lastDepth = 0;
 			var lastFolder = "";
+			var linkName = "";
+			
 			// Variable used to build the HTML tree
 			var menuTreeHTML = "";
 			// get the current url to see if we need to specify the repo name or not
@@ -117,7 +119,8 @@ function MenuController($scope, $http, $route, $templateCache) {
 						angular.forEach($scope.treeJSONarray, function(value, key) {
 							// insert home to the top of the tree
 							if(key == 1) {
-								menuTreeHTML = '<ul class="nav nav-list"><li><a href="/#/en/home.md" title="Home">Home</a></li>';
+								linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
+								menuTreeHTML = '<ul class="nav nav-list"><li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="Home">' + linkName + '</a></li>';
 							}
 							else if(key == 2) {
 								lastFolder = $scope.treeJSONarray[key].path.split("/");
