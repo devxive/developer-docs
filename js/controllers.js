@@ -62,8 +62,8 @@ function MenuController($scope, $http, $route, $templateCache) {
 				depth: 0
 			};
 			// regex for filtering and splitting paths and files
-			var markdownCMSFiles = /^docs\/.{2}\/cms\/.*?md$/;
-			var markdownFrameworkFiles = /^docs\/.{2}\/framework\/.*?md$/;
+			var markdownZSTUDIOFiles = /^docs\/.{2}\/zendstudio\/.*?md$/;
+			var markdownZSERVERFiles = /^docs\/.{2}\/zendserver\/.*?md$/;
 			var separatePath = /(.*)[\/\\]([^\/\\]+\.\w+)$/;
 //			var isOfficial = /^http\:\/\/developer\.docs\.devxive\.com/;
 			var isOfficial = /^http\:\/\/devxive\.github\.io/;
@@ -92,7 +92,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 						$scope.treeDetails = data;
 						// only store the paths that begin with "docs/**/cms/" or "docs/**/framework" and ends with "md"
 						angular.forEach($scope.treeDetails.tree, function(value, key) {
-							if(value.path.match(markdownCMSFiles) != null | value.path.match(markdownFrameworkFiles) != null) {
+							if(value.path.match(markdownZSTUDIOFiles) != null | value.path.match(markdownZSERVERFiles) != null) {
 								// Get a list of paths
 								var splitRoute = value.path.match(separatePath);
 								if(splitRoute != null) {
