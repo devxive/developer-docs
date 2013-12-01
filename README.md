@@ -1,15 +1,17 @@
-# Joomla Developer Documentation
+# devXive | Developer Documentation
+Experimental developer documentation.
 
-Experimental library for Joomla developer documentation.
+This is an unofficial library of somewhat official looking developer documentation for devXive projects.
 
-This is an unofficial library of somewhat official looking developer documentation for software produced by the Joomla project.
+<strike>For information on how to contribute, see the [wiki](https://github.com/devXive/developer-docs/wiki).</strike>
 
-For information on how to contribute, see the [wiki](https://github.com/joomla/joomla-developer-docs/wiki).
-
-For the published version, see [http://joomla.github.io/joomla-developer-docs/](http://joomla.github.io/joomla-developer-docs/).
+For the published version, see [http://devxive.github.io/developer-docs/](http://devxive.github.io/developer-docs/).
 
 ## Table of Contents
 
-* [Joomla CMS](docs/en/cms/README.md)
-* [Joomla Framework](docs/en/framework/README.md)
-* Joomla Issue Tracker
+* [Server](docs/en/server/README.md)
+* [IDE](docs/en/ide/README.md)
+* Coding Standards
+* Formatting
+* Templates
+* Rapid Development Kit
