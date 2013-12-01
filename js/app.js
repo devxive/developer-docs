@@ -16,16 +16,15 @@ angular.module('devXiveDevDocs', [
     $routeProvider.when('/:lang/:part1/:part2/:part3/:part4', {templateUrl: 'partials/docPage.html', controller: DocController});
 
     $routeProvider.otherwise({redirectTo: 'en/home.md'});
-  }]);
-
-angular.module('devXiveDevDocs', ['ngSanitize']).
+  }]).
   config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       // Allow same origin resource loads.
       'self',
       // Allow loading from our master repository. Notice the difference between * and **. (http://srv01.assets.example.com/, http://srv02.assets.example.com/, etc.)
       /* 'http://srv*.assets.example.com/**', */
-      'https://github.com/devXive/developer-docs/**'
+      'https://github.com/devXive/developer-docs/**',
+      'http://github.com/devXive/developer-docs/**'
     ]);
     // The blacklist overrides the whitelist so the open redirect here is blocked.
     $sceDelegateProvider.resourceUrlBlacklist([
