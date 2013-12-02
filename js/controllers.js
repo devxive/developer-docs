@@ -116,20 +116,21 @@ function MenuController($scope, $http, $route, $templateCache) {
 							}
 						});
 						// build the html menu tree
+						console.log( $scope.treeJSONarray );
 						angular.forEach($scope.treeJSONarray, function(value, key) {
 							// insert home to the top of the tree
 							if(key == 1) {
-								linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
-								menuTreeHTML = '<ul class="nav nav-list"><li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="Home">' + linkName + '</a></li>';
+								menuTreeHTML = '<ul class="nav nav-list"><li><a href="/developer-docs/#/en/home.md" title="Home">Home</a></li>';
 							}
 							else if(key == 2) {
 								lastFolder = $scope.treeJSONarray[key].path.split("/");
+								linkName = $scope.treeJSONarray[key].name.replace(/\.md$/, "").charAt(0).toUpperCase() + $scope.treeJSONarray[key].name.replace(/\.md$/, "").slice(1).toLowerCase();
 								menuTreeHTML += '<li><label class="tree-toggler">' + lastFolder[lastFolder.length-1].toUpperCase() + '</label><ul class="nav nav-list tree">';
 								if(currentURL.match(isOfficial)) {
-									menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';										
+									menuTreeHTML += '<li><a href="/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + linkName + '</a></li>';										
 								}
 								else {
-									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + $scope.treeJSONarray[key].name.replace(/\.md$/, "") + '</a></li>';											
+									menuTreeHTML += '<li><a href="/developer-docs/#/' + $scope.treeJSONarray[key].path + '/' + $scope.treeJSONarray[key].name + '" title="' + $scope.treeJSONarray[key].name + '">' + linkName + '</a></li>';											
 								}
 							}
 							else {
