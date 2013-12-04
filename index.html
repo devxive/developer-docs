@@ -1,77 +1,91 @@
 <!doctype html>
-<html lang="en" ng-app="devxiveDevDocs">
+<html lang="en" ng-app="devXiveDevDocs">
 <head>
 	<meta charset="utf-8">
-	<title>devXive - Developer Documentation</title>
+	<title>devXive Developer Documentation</title>
 	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.css"/>
+	<link rel="stylesheet" href="css/nav-list.css"/>
 	<link rel="stylesheet" href="css/app.css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
 	<style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.nrdk-surround {
+			margin: 0 15px
+		}
+		.sidebar-nav {
+			padding: 9px 0;
+		}
+	</style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="#">devXive - Developer Documentation</a>
-        </div>
-        <div class="navbar-collapse collapse pull-right">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">devXive - Developer Documentation</a>
+		</div>
+		<div class="navbar-collapse collapse pull-right">
 			<ul class="nav navbar-nav">
 				<li class="active version"><a>{{ 'DevDocs v%VERSION%' | interpolate }}</a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
-      </div>
-    </div>
+	</div>
 
-    <noscript><h1 class="alert alert-error">Please activate JavaScript to see this content!</h1></noscript>
-
-	<div id="main" class="container-fluid">
-		<div class="row-fluid">
-			<div class="span3 well" id="menu" ng-controller="MenuController">
-				<!-- <span ng-bind-html-unsafe="menu | marked"></span> -->
-				<span ng-bind-html-unsafe="treeJSONarray"></span>
+	<div class="nrdk-surround">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="well2 sidebar-nav" id="doc-menu" ng-controller="MenuController">
+					<span ng-bind-html="treeJSONarray"></span>
+				</div>
 			</div>
-			<div class="span9 ng-view" id="content">
+			<div class="col-md-9" id="doc-main" ng-view>
 			</div>
 		</div>
-		<footer>
-			<p class="pull-right">{{ 'DevDocs v%VERSION%' | interpolate }}</p>
+		
+		<hr>
+
+		<footer class="hide">
+			<p>The contents of this wiki are subject to copyright law and are made available under the <a href="http://devxive.com/DEDL"
+			title="devXive Electronic Documentation License (DEDL)">devXive Electronic Documentation License (DEDL)</a> unless otherwise stated.
+			You may find the <a href="http://devxive.com/DEDL/FAQ" title="DEDL Frequently Asked Questions">DEDL Frequently Asked Questions</a>
+			useful in determining if your proposed use of this material is allowed. If you have any questions regarding licensing of this
+			material please contact <a href="mailto:legal@devxive.com" title="eMail to devXive - research and development">legal@devxive.com</a>.
+			If you wish to report a possible violation of the license terms for the material on this site then please contact
+			<a href="mailto:legal@devxive.com" title="eMail to devXive - reseach and development">legal@devxive.com</a>.</p>
 		</footer>
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	
 	<!-- In production use:
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 	-->
-	<script src="js/lib/angular.js"></script>
+	<script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-sanitize.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/controllers.js"></script>
 	<script src="js/filters.js"></script>
 	<script src="js/directives.js"></script>
 	<script src="js/marked.js"></script>
-	<script src="js/lib/angulartics.js"></script>
-	<script src="js/lib/angulartics-google-analytics.js"></script>
+
 	<script type="text/javascript">
-	/* The DOM reports the document as ready before Angular populates the menu.
-	 * Force the jQuery for the menu collapse functionality to wait 3 seconds
-	 * to make sure the elements are in place to be operated on.
-	 * 3 seconds is worst case time delay, and could be shortened with more testing / benchmarking
-	*/
+		/* The DOM reports the document as ready before Angular populates the menu.
+		 * Force the jQuery for the menu collapse functionality to wait 3 seconds
+		 * to make sure the elements are in place to be operated on.
+		 * 3 seconds is worst case time delay, and could be shortened with more testing / benchmarking
+		 */ 
 		jQuery(document).ready(function () {
 			window.setTimeout(function(){
 				jQuery('label.tree-toggler').click(function () {
 					jQuery(this).parent().children('ul.tree').toggle(300);
-			        jQuery(this).toggleClass('open');
+					jQuery(this).toggleClass('open');
 				});
 			}, 3000);
 		});
 	</script>
-	</body>
+</body>
 </html>
