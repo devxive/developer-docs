@@ -84,17 +84,13 @@ function MenuController($scope, $http, $route, $templateCache) {
 
 			// get the current url to see if we need to specify the repo name or not
 			var currentURL = window.location.href;
-				console.log($scope.commit);
 
 			// foreach loop to get the sha of the latest commit for the tree
 			angular.forEach($scope.commit, function(value, key) {
-				console.log(value);
 				if($scope.count > 0) return;
-				console.log(value);
-				console.log(key);
 				$scope.commitSha.push({sha: value});
 				// Reference the official devXive repo
-				$scope.treeUrl = 'https://api.github.com/repos/devXive/developer-docs/git/trees/' + value.sha + '?recursive=1';
+				$scope.treeUrl = 'https://api.github.com/repos/devXive/developer-docs/git/trees/' + value + '?recursive=1';
 				// get the tree details - unfortunately it is a flat tree, not nested with children, so we have to create the hierachy
 				$http({method: $scope.method, url: $scope.treeUrl, cache: $templateCache}).
 					success(function(data, status) {
