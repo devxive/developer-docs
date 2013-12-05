@@ -7,30 +7,28 @@
 	<link rel="stylesheet" href="css/app.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.sidebar-nav {
+			padding: 9px 0;
+		}
+	</style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="#">devXive - Developer Documentation</a>
-        </div>
-        <div class="navbar-collapse collapse pull-right">
-			<ul class="nav navbar-nav">
-				<li class="active version"><a>{{ 'DevDocs v%VERSION%' | interpolate }}</a></li>
-			</ul>
-		</div><!--/.nav-collapse -->
-      </div>
-    </div>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="brand" href="#">devXive - Developer Documentation</a>
+				<ul class="nav pull-right">
+					<li class="active version"><a>{{ 'DevDocs v%VERSION%' | interpolate }}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <noscript><h1 class="alert alert-error">Please activate JavaScript to see this content!</h1></noscript>
+	<noscript><h1 class="alert alert-error">Please activate JavaScript to see this content!</h1></noscript>
 
 	<div id="main" class="container-fluid">
 		<div class="row-fluid">
@@ -68,7 +66,7 @@
 			window.setTimeout(function(){
 				jQuery('label.tree-toggler').click(function () {
 					jQuery(this).parent().children('ul.tree').toggle(300);
-			        jQuery(this).toggleClass('open');
+					jQuery(this).toggleClass('open');
 				});
 			}, 3000);
 		});

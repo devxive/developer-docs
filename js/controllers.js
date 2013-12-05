@@ -64,8 +64,12 @@ function MenuController($scope, $http, $route, $templateCache) {
 			// regex for filtering and splitting paths and files
 			var markdownCMSFiles = /^docs\/.{2}\/cms\/.*?md$/;
 			var markdownFrameworkFiles = /^docs\/.{2}\/framework\/.*?md$/;
+			var markdownIDEFiles = /^docs\/.{2}\/ide\/.*?md$/;
+			var markdownServerFiles = /^docs\/.{2}\/server\/.*?md$/;
+
 			var separatePath = /(.*)[\/\\]([^\/\\]+\.\w+)$/;
 			var isOfficial = /^http\:\/\/developer-docs\.devxive\.com/;
+
 			// Utility variables used throughout the function
 			var splitPath = "";
 			var lastPath = "";
@@ -74,10 +78,13 @@ function MenuController($scope, $http, $route, $templateCache) {
 			var matchingPath = 0;
 			var lastDepth = 0;
 			var lastFolder = "";
+
 			// Variable used to build the HTML tree
 			var menuTreeHTML = "";
+
 			// get the current url to see if we need to specify the repo name or not
 			var currentURL = window.location.href;
+
 			// foreach loop to get the sha of the latest commit for the tree
 			angular.forEach($scope.commit, function(value, key) {
 				if($scope.count > 0) return;
@@ -91,7 +98,12 @@ function MenuController($scope, $http, $route, $templateCache) {
 						$scope.treeDetails = data;
 						// only store the paths that begin with "docs/**/cms/" or "docs/**/framework" and ends with "md"
 						angular.forEach($scope.treeDetails.tree, function(value, key) {
-							if(value.path.match(markdownCMSFiles) != null | value.path.match(markdownFrameworkFiles) != null) {
+							if(
+								value.path.match(markdownCMSFiles) != null |
+								value.path.match(markdownFrameworkFiles) != null |
+								value.path.match(markdownIDEFiles) != null |
+								value.path.match(markdownServerFiles) != null
+							) {
 								// Get a list of paths
 								var splitRoute = value.path.match(separatePath);
 								if(splitRoute != null) {
