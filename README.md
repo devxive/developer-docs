@@ -1,7 +1,7 @@
 # devXive | Developer Documentation
 Experimental developer documentation.
 
-This is an unofficial library of somewhat official looking developer documentation for devXive projects.
+The developer documentation for devXive projects.
 
 <strike>For information on how to contribute, see the [wiki](https://github.com/devXive/developer-docs/wiki).</strike>
 
