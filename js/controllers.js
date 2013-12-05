@@ -26,7 +26,7 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 	$http.get('docs/' + page).success(function(data) {
 		$scope.pageContent = data;
 		/* point the edit to the original master, then you are prompted to fork if you don't have write access */
-		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/master/docs/' + page;
+		$scope.sourceEdit = 'https://github.com/devXive/developer-docs/edit/gh-pages/docs/' + page;
 	});
 }
 /* // Original menu controller
@@ -39,7 +39,7 @@ function DocController($scope, $routeParams, $http, $route, $location, $anchorSc
 function MenuController($scope, $http, $route, $templateCache) {
 	$scope.method = 'GET';
 	// reference the official devXive repo
-	$scope.commitUrl = 'https://api.github.com/repos/devXive/developer-docs/commits?path=docs';
+	$scope.commitUrl = 'https://api.github.com/repos/devXive/developer-docs/commits/gh-pages?path=docs';
 
 	// get the commits that affect the docs path only
 	$http({method: $scope.method, url: $scope.commitUrl, cache: $templateCache}).
