@@ -88,6 +88,7 @@ function MenuController($scope, $http, $route, $templateCache) {
 			// foreach loop to get the sha of the latest commit for the tree
 			angular.forEach($scope.commit, function(value, key) {
 				if($scope.count > 0) return;
+				console.log(value);
 				$scope.commitSha.push({sha: value});
 				// Reference the official devXive repo
 				$scope.treeUrl = 'https://api.github.com/repos/devXive/developer-docs/git/trees/' + value.sha + '?recursive=1';
