@@ -1,10 +1,3 @@
----
-title: Project Title
-breadcrumb: /joomla:Joomla/!extensions:Extensions/project:Project
-
----
-
-
 # devXive | Developer Documentation
 Experimental developer documentation.
 
